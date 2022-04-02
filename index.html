@@ -1,10 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>My Web</title>
-</head>
-<body>
-	<h1>Hello World!</h1>
-</body>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>全栈爱好者训练营</title>
+
+		<!-- Bootstrap CSS -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style>
+			body {
+				padding-top: 50px;
+			}
+			.starter-template {
+				padding: 40px 15px;
+				/* text-align: center; */
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#">全栈爱好者训练营</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			  <ul class="nav navbar-nav">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">关于</a></li>
+				<li><a href="#">联系我们</a></li>
+			  </ul>
+			</div><!--/.nav-collapse -->
+		  </div>
+		</nav>
+
+		<div class="container">
+
+		  <div class="starter-template">
+			<h1>编写你的第一个 Django 应用，第 1 部分</h1>
+			<!-- <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
+
+			<p>让我们通过示例来学习。</p>
+
+			<p>通过这个教程，我们将带着你创建一个基本的投票应用程序。</p>
+
+			<p>它将由两部分组成：</p>
+
+			<p>一个让人们查看和投票的公共站点。</p>
+			<p>一个让你能添加、修改和删除投票的管理站点。</p>
+			<p>我们假定你已经阅读了 安装 Django。你能知道 Django 已被安装，且安装的是哪个版本，通过在命令提示行输入命令（由 $ 前缀）。</p>
+
+			<p>$ python -m django --version</p>
+			<p>如果这行命令输出了一个版本号，证明你已经安装了此版本的 Django；如果你得到的是一个“No module named django”的错误提示，则表明你还未安装。</p>
+
+			<p>这个教程是为了 Django 2.1 写的，它支持 Python 3.5 和后续版本。如果 Django 的版本不匹配，你可以通过页面右下角的版本切换器切换到对应你版本的教程，或更新至最新版本。如果你正在使用一个较老版本的 Python，在 我应该使用哪个版本的 Python 来配合 Django? 查找一个合适的 Django 版本。</p>
+
+			<p>你可以查看文档 如何安装 Django 来获得关于移除旧版本，安装新版本的流程和建议。</p>
+
+			<p>创建项目¶</p>
+			<p>如果这是你第一次使用 Django 的话，你需要一些初始化设置。也就是说，你需要用一些自动生成的代码配置一个 Django project —— 即一个 Django 项目实例需要的设置项集合，包括数据库配置、Django 配置和应用程序配置。</p>
+
+			<p>打开命令行，cd 到一个你想放置你代码的目录，然后运行以下命令：</p>
+
+			<p>$ django-admin startproject mysite</p>
+			<p>这行代码将会在当前目录下创建一个 mysite 目录。如果命令失败了，查看 运行``django-admin``时遇到的问题，可能能给你提供帮助。</p>
+
+			<p>注解</p>
+
+			<p>你得避免使用 Python 或 Django 的内部保留字来命名你的项目。具体地说，你得避免使用像 django (会和 Django 自己产生冲突)或 test (会和 Python 的内置组件产生冲突)这样的名字。</p>
+
+			<p>我的代码该放在哪？</p>
+
+			<p>如果你曾经是原生 PHP 程序员（没有使用过现代框架），你可能会习惯于把代码放在 Web 服务器的文档根目录(诸如 /var/www)。当使用 Django 时不需要这样做。把所有 Python 代码放在 Web 服务器的根目录不是个好主意，因为这样会有风险。比如会提高人们在网站上看到你的代码的可能性。这不利于网站的安全。</p>
+
+			<p>把你的代码放在文档根目录 以外 的某些地方吧，比如 /home/mycode。</p>
+
+			<p>让我们看看 startproject 创建了些什么:</p>
+
+			<pre>
+mysite/
+	manage.py
+	mysite/
+		__init__.py
+		settings.py
+		urls.py
+		wsgi.py
+			</pre>
+			<p>这些目录和文件的用处是：</p>
+
+			<p>最外层的:file: mysite/ 根目录只是你项目的容器， Django 不关心它的名字，你可以将它重命名为任何你喜欢的名字。</p>
+			<p>manage.py: 一个让你用各种方式管理 Django 项目的命令行工具。你可以阅读 django-admin and manage.py 获取所有 manage.py 的细节。</p>
+			<p>里面一层的 mysite/ 目录包含你的项目，它是一个纯 Python 包。它的名字就是当你引用它内部任何东西时需要用到的 Python 包名。 (比如 mysite.urls).</p>
+			<p>mysite/__init__.py：一个空文件，告诉 Python 这个目录应该被认为是一个 Python 包。如果你是 Python 初学者，阅读官方文档中的 更多关于包的知识。</p>
+			<p>mysite/settings.py：Django 项目的配置文件。如果你想知道这个文件是如何工作的，请查看 Django settings 了解细节。</p>
+			<p>mysite/urls.py：Django 项目的 URL 声明，就像你网站的“目录”。阅读 URL调度器 文档来获取更多关于 URL 的内容。</p>
+			<p>mysite/wsgi.py：作为你的项目的运行在 WSGI 兼容的Web服务器上的入口。阅读 如何使用 WSGI 进行部署 了解更多细节。</p>
+		  </div>
+		</div><!-- /.container -->
+
+		<footer class="footer ">
+			<div class="container">
+			  <div class="row footer-top">
+			  <hr>
+			  <div class="row footer-bottom">
+				<ul class="list-inline text-center">
+				  <li>&copy;全栈爱好者训练营</li><li>丨</li><li><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备15041680号-1</a></li>
+				</ul>
+			  </div>
+			</div>
+		  </footer>
+
+		<!-- jQuery -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</body>
 </html>
